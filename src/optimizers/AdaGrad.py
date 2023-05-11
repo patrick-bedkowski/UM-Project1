@@ -2,7 +2,7 @@ import numpy as np
 
 from src.optimizers.Optimizer import Optimizer
 
-from src.logistic_regression.log_reg import log_reg_gradient, calculate_loss
+from src.regression.reg import reg_gradient, calculate_loss
 
 
 class AdaGrad(Optimizer):
@@ -28,7 +28,7 @@ class AdaGrad(Optimizer):
         self.lambda_ = new_lambda
         self.epsilon = new_epsilon
 
-    def optimize(self, w_0, tx, y, max_iter):
+    def optimize(self, w_0, tx, y, max_iter, loss_type):
         '''Algoritm for adaptive gradient optimization.
 
         Adapts learing parameter - smaller rate for frequent features (well-suited for sparse data).
@@ -57,13 +57,13 @@ class AdaGrad(Optimizer):
         w = [w_0]
 
         for t in range(max_iter):
-            g_t = log_reg_gradient(y, tx, w[t])
+            g_t = reg_gradient(y, tx, w[t])
             G_t += np.linalg.norm(g_t)**2
             v_k = np.diag(self.lambda_ / np.sqrt(G_t) + self.epsilon) @ g_t
             w_next = w[t] - v_k
             w.append(w_next)
 
             grads.append(g_t)
-            losses.append(calculate_loss(y, tx, w_next))
+            losses.append(calculate_loss(y, tx, w_next, loss_type))
 
         return grads, losses

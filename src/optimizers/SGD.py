@@ -2,8 +2,8 @@ import numpy as np
 
 from src.optimizers.Optimizer import Optimizer
 
-from src.logistic_regression.stochastic_gradient import stochastic_gradient
-from src.logistic_regression.log_reg import calculate_loss
+from src.regression.stochastic_gradient import stochastic_gradient
+from src.regression.reg import calculate_loss
 
 
 class SGD(Optimizer):
@@ -25,7 +25,7 @@ class SGD(Optimizer):
     def set_params(self, new_lambda):
         self.lambda_ = new_lambda
 
-    def optimize(self, w_0, tx, y, max_iter):
+    def optimize(self, w_0, tx, y, max_iter, loss_type):
         """
         Compute Stochastic gradient Descent
         :param w_0: Initial weights vector
@@ -46,6 +46,6 @@ class SGD(Optimizer):
 
             w.append(w_next)
             grads.append(gradient)
-            losses.append(calculate_loss(y, tx, w_next))
+            losses.append(calculate_loss(y, tx, w_next, loss_type))
 
         return grads, losses
