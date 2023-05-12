@@ -41,11 +41,14 @@ class SGD(Optimizer):
 
         for t in range(max_iter):
             i_t = np.random.choice(np.arange(n))  # get index of sample for which to compute gradient
-            gradient = stochastic_gradient(y, tx, w[t], [i_t])
-            w_next = w[t] - self.lambda_ * gradient
+            sto_grad = stochastic_gradient(y, tx, w[t], [i_t])
+            w_next = w[t] - self.lambda_ * sto_grad
+
+            if t % 10000 == 0:
+                print(t)
 
             w.append(w_next)
-            grads.append(gradient)
+            grads.append(sto_grad)
             losses.append(calculate_loss(y, tx, w_next, loss_type))
 
         return grads, losses
