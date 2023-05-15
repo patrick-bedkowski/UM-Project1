@@ -1,4 +1,4 @@
-from src.regression.reg import reg_gradient
+from regression.reg import reg_gradient
 import numpy as np
 
 
