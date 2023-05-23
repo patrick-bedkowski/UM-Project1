@@ -12,7 +12,6 @@ class RMSProp(Optimizer):
 
     def __init__(self,
                  lambda_: float,
-                 q: int,
                  decay_rate_: float,
                  epsilon: float = 1e-8):
         """
@@ -24,7 +23,6 @@ class RMSProp(Optimizer):
             decay_rate_: Number from 0 to 1 that determines how much weight we give to the current gradient compared to previous gradients
         """
         self.lambda_ = lambda_
-        self.q = q
         self.epsilon = epsilon
         self.decay_rate = decay_rate_
 
@@ -73,7 +71,7 @@ class RMSProp(Optimizer):
             w_next = w[t] - v_k
             w.append(w_next)
 
-            if t % 10000 == 0:
+            if t % 50000 == 0:
                 print(t)
 
             grads.append(sto_grad)

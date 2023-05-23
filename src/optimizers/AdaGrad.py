@@ -12,7 +12,6 @@ class AdaGrad(Optimizer):
 
     def __init__(self,
                  lambda_: float,
-                 q: int,
                  epsilon: float = 1e-8):
         """
         Implementation of AdaGrad method.
@@ -22,7 +21,6 @@ class AdaGrad(Optimizer):
             epsilon:
         """
         self.lambda_ = lambda_
-        self.q = q
         self.epsilon = epsilon
 
     def set_params(self, new_lambda, new_epsilon):
@@ -69,7 +67,7 @@ class AdaGrad(Optimizer):
             w_next = w[t] - v_k
             w.append(w_next)
 
-            if t % 10000 == 0:
+            if t % 50000 == 0:
                 print(t)
 
             grads.append(sto_grad)

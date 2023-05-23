@@ -37,7 +37,7 @@ def calculate_loss(y, tx, w, loss_type: LossType):
         a non-negative loss
     """
     pred = tx.dot(w)
-    if loss_type == LossType.MSE:
+    if loss_type.name == LossType.MSE.name:
         return mean_squared_error(y, pred)
-    elif loss_type == LossType.MAE:
+    elif loss_type.name == LossType.MAE.name:
         return mean_absolute_error(y, pred)

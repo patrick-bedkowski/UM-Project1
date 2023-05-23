@@ -11,7 +11,6 @@ class SGD(Optimizer):
     n_params_to_tune = 1
 
     def __init__(self,
-                 q: int,
                  lambda_: float):
         """
         Implementation of SGD method.
@@ -19,7 +18,6 @@ class SGD(Optimizer):
             q: Number of iterations for each the variance reduction gradient should be saved
             lambda_: Step size
         """
-        self.q = q
         self.lambda_ = lambda_
 
     def set_params(self, new_lambda):
@@ -44,7 +42,7 @@ class SGD(Optimizer):
             sto_grad = stochastic_gradient(y, tx, w[t], [i_t])
             w_next = w[t] - self.lambda_ * sto_grad
 
-            if t % 10000 == 0:
+            if t % 50000 == 0:
                 print(t)
 
             w.append(w_next)
